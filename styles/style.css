@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "Inconsolata";
+  src: url("../assets/fonts/Inconsolata-VariableFont_wdth,wght.ttf");
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inconsolata", sans-serif;
+  color: hsl(0, 0%, 100%);
+}
+
+body {
+  background-image: url("../assets/images/background-mobile.png"), url("../assets/images/pattern-squiggly-line-bottom.svg"), url("../assets/images/pattern-circle.svg");
+  background-repeat: no-repeat;
+  background-size: cover, cover, cover;
+  background-position: center, center, center;
+}/*# sourceMappingURL=style.css.map */
