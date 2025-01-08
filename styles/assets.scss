@@ -1,0 +1,25 @@
+// importing local fonts from assets folder
+@font-face {
+  font-family: "Inconsolata";
+  src: url("../assets/fonts/Inconsolata-VariableFont_wdth,wght.ttf");
+}
+$label-font-size: 20px;
+
+// Variable colors
+$neutral-0: hsl(0, 0%, 100%);
+$neutral-300: hsl(252, 6%, 83%);
+$neutral-500: hsl(245, 15%, 58%);
+$neutral-700: hsl(245, 19%, 35%);
+$neutral-900: hsl(248, 70%, 10%);
+$orange-500: hsl(7, 88%, 67%);
+$orange-700: hsl(7, 71%, 60%);
+$gradient-text: linear-gradient(135deg, $orange-500, $neutral-0);
+
+// Mixins
+@mixin flex-center($direction, $align, $justify, $gap) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+}

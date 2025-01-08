@@ -15,4 +15,147 @@ body {
   background-repeat: no-repeat;
   background-size: cover, cover, cover;
   background-position: center, center, center;
+}
+body .container {
+  width: 100%;
+  padding: 1rem;
+}
+body .title {
+  text-align: center;
+  margin: 10px 0 15px 0;
+}
+body .title svg {
+  width: 150px;
+}
+body header {
+  padding: 7px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+body header h2 {
+  text-transform: capitalize;
+  margin-bottom: 15px;
+}
+body header p {
+  font-size: 16px;
+  font-weight: 400;
+  padding: 4px 10px;
+  color: hsl(252, 6%, 83%);
+}
+body form .form-group {
+  margin-bottom: 1rem;
+}
+body form .form-group .error {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  display: none;
+}
+body form .form-group .error p {
+  color: hsl(7, 88%, 67%) !important;
+  font-size: 0.7rem;
+}
+body form .form-group .error svg path {
+  stroke: hsl(7, 88%, 67%);
+}
+body form .form-group .error-1 {
+  display: flex;
+}
+body form .form-group .error-1 p {
+  color: hsl(0, 0%, 100%) !important;
+}
+body form .form-group .error-1 svg path {
+  stroke: hsl(0, 0%, 100%) !important;
+}
+body form .form-group .input-wrapper {
+  width: 100%;
+  padding: 1px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border-radius: 12px;
+}
+body form .form-group .input-wrapper input[type=text],
+body form .form-group .input-wrapper input[type=email] {
+  width: 100%;
+  margin: 2px;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background-color: transparent;
+  color: hsl(0, 0%, 100%) !important;
+  font-size: 16px;
+  outline: none;
+  font-weight: 700;
+  border: 1px solid none;
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+body form .form-group .input-wrapper input[type=text]:focus,
+body form .form-group .input-wrapper input[type=email]:focus {
+  border-color: hsl(252, 6%, 83%);
+}
+body form .form-group .input-wrapper label {
+  display: block;
+  margin-bottom: 10px;
+}
+body form .form-group .input-wrapper button {
+  width: 100%;
+  padding: 13px 10px;
+  border: none;
+  border-radius: 8px;
+  background: hsl(7, 88%, 67%);
+  color: hsl(248, 70%, 10%);
+  font-weight: 900;
+  margin: 2px;
+  cursor: pointer;
+  font-size: 16px;
+}
+body form .form-group .input-wrapper .upload-avatar {
+  border: 1px dashed hsl(252, 6%, 83%);
+  width: 100%;
+  margin: 2px;
+  border-radius: 8px;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+body form .form-group .input-wrapper .upload-avatar input {
+  display: none;
+}
+body form .form-group .input-wrapper .upload-avatar .upload-icon {
+  width: -moz-fit-content;
+  width: fit-content;
+  height: auto;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: hsl(245, 19%, 35%);
+  border: 1px solid hsl(245, 15%, 58%);
+  padding: 6px;
+  border-radius: 10px;
+}
+body form .form-group .input-wrapper .upload-avatar .instructon {
+  font-size: 0.9rem;
+}
+body form .form-group .input-wrapper:has(input[type=text], input[type=email]) {
+  border: 1px solid hsl(0, 0%, 100%);
+}
+body form .form-group .input-wrapper:has(button),
+body form .form-group .input-wrapper:has(input[type=file]) {
+  border: 1px solid transparent;
+  transition: border-color 0.3s ease-in-out;
+}
+body form .form-group .input-wrapper:has(button:focus) {
+  border-color: hsl(0, 0%, 100%);
 }/*# sourceMappingURL=style.css.map */
