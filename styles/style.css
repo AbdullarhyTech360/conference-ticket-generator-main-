@@ -42,6 +42,10 @@ body header p {
   padding: 4px 10px;
   color: hsl(252, 6%, 83%);
 }
+body form {
+  width: min(400px, 100%);
+  margin: 0 auto;
+}
 body form .form-group {
   margin-bottom: 1rem;
 }
@@ -51,6 +55,7 @@ body form .form-group .error {
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
+  margin-top: 4px;
   display: none;
 }
 body form .form-group .error p {
@@ -69,6 +74,11 @@ body form .form-group .error-1 p {
 body form .form-group .error-1 svg path {
   stroke: hsl(0, 0%, 100%) !important;
 }
+body form .form-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
 body form .form-group .input-wrapper {
   width: 100%;
   padding: 1px;
@@ -79,8 +89,7 @@ body form .form-group .input-wrapper {
   gap: 0;
   border-radius: 12px;
 }
-body form .form-group .input-wrapper input[type=text],
-body form .form-group .input-wrapper input[type=email] {
+body form .form-group .input-wrapper input[type=text] {
   width: 100%;
   margin: 2px;
   padding: 10px;
@@ -95,29 +104,13 @@ body form .form-group .input-wrapper input[type=email] {
   transition: border-color 0.3s ease-in-out;
   cursor: pointer;
 }
-body form .form-group .input-wrapper input[type=text]:focus,
-body form .form-group .input-wrapper input[type=email]:focus {
+body form .form-group .input-wrapper input[type=text]:focus {
   border-color: hsl(252, 6%, 83%);
-}
-body form .form-group .input-wrapper label {
-  display: block;
-  margin-bottom: 10px;
-}
-body form .form-group .input-wrapper button {
-  width: 100%;
-  padding: 13px 10px;
-  border: none;
-  border-radius: 8px;
-  background: hsl(7, 88%, 67%);
-  color: hsl(248, 70%, 10%);
-  font-weight: 900;
-  margin: 2px;
-  cursor: pointer;
-  font-size: 16px;
 }
 body form .form-group .input-wrapper .upload-avatar {
   border: 1px dashed hsl(252, 6%, 83%);
   width: 100%;
+  cursor: pointer;
   margin: 2px;
   border-radius: 8px;
   padding: 15px 20px;
@@ -131,10 +124,12 @@ body form .form-group .input-wrapper .upload-avatar input {
   display: none;
 }
 body form .form-group .input-wrapper .upload-avatar .upload-icon {
-  width: -moz-fit-content;
-  width: fit-content;
-  height: auto;
-  aspect-ratio: 1;
+  width: 50px;
+  height: 40px;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -142,20 +137,190 @@ body form .form-group .input-wrapper .upload-avatar .upload-icon {
   gap: 0;
   background: hsl(245, 19%, 35%);
   border: 1px solid hsl(245, 15%, 58%);
-  padding: 6px;
   border-radius: 10px;
 }
-body form .form-group .input-wrapper .upload-avatar .instructon {
+body form .form-group .input-wrapper .upload-avatar .upload-icon img {
+  max-width: 40px;
+  width: 100%;
+  height: 39px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  display: none;
+}
+body form .form-group .input-wrapper .upload-avatar .instruction {
   font-size: 0.9rem;
 }
-body form .form-group .input-wrapper:has(input[type=text], input[type=email]) {
+body form .form-group .input-wrapper:has(input[type=text]) {
   border: 1px solid hsl(0, 0%, 100%);
 }
-body form .form-group .input-wrapper:has(button),
 body form .form-group .input-wrapper:has(input[type=file]) {
   border: 1px solid transparent;
   transition: border-color 0.3s ease-in-out;
 }
-body form .form-group .input-wrapper:has(button:focus) {
+body form .form-group .input-wrapper:has(button[type=submit]) {
+  background-color: hsl(7, 88%, 67%);
+  border: 1px solid transparent;
+  transition: border-color 0.3s ease-in-out;
+}
+body form .form-group .input-wrapper:has(button[type=submit]:focus) {
   border-color: hsl(0, 0%, 100%);
+  background: transparent;
+}
+body form .error-wrapper {
+  padding: 0 !important;
+}
+body form .error-wrapper input {
+  border: 1px solid hsl(7, 88%, 67%) !important;
+  margin: 0 !important;
+}
+body form .form-group:first-child #remove-change-buttons {
+  display: none;
+}
+body form .form-group:first-child #remove-change-buttons button {
+  padding: 7px 11px 4px 11px;
+  border: none;
+  border-radius: 6px;
+  background: hsl(245, 19%, 35%);
+  cursor: pointer;
+}
+body form .form-group:first-child #remove-change-buttons button:hover {
+  text-decoration: underline;
+}
+body form .form-group:first-child.uploaded button {
+  display: inline;
+}
+body form .form-group:last-child button {
+  width: 100%;
+  padding: 11px 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: hsl(248, 70%, 10%);
+  font-weight: 900;
+  margin: 2px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out;
+}
+body form .form-group:last-child button:focus {
+  background-color: hsl(7, 88%, 67%);
+}
+body .ticket-container header {
+  padding: 10px;
+  font-size: 0.9em;
+}
+body .ticket-container header h1 {
+  font-size: 1.8em;
+}
+body .ticket-container header h1 .name-group {
+  background-image: linear-gradient(to right, hsl(7, 88%, 67%), hsl(0, 0%, 100%));
+  -webkit-background-clip: text;
+          background-clip: text;
+  text-transform: capitalize;
+  color: transparent;
+}
+body .ticket-container main #notification {
+  text-align: center;
+  margin: 0 auto 40px auto;
+  padding: 0 2px 20px 2px;
+  font-size: 1.13em;
+  font-weight: 600;
+}
+body .ticket-container main #notification #your-email {
+  color: hsl(7, 88%, 67%);
+}
+body .ticket-container main .ticket {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: space-between;
+  gap: auto;
+  background-image: url("../assets/images/pattern-ticket.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 343px;
+  height: 160px;
+  padding: 15px;
+  border-radius: 7px;
+}
+body .ticket-container main .main-info {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: space-between;
+  gap: 15px;
+}
+body .ticket-container main .ticket-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  gap: 4px;
+}
+body .ticket-container main .ticket-logo svg {
+  width: 160px;
+}
+body .ticket-container main .ticket-logo #ticket-date {
+  color: hsl(252, 6%, 83%);
+  font-size: 0.8em;
+  word-spacing: 2px;
+  display: inline-block;
+  margin-left: 38px;
+}
+body .ticket-container main .ticket-main {
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: space-between;
+  gap: 12px;
+}
+body .ticket-container main .ticket-main img {
+  width: 40px;
+  aspect-ratio: 1/1;
+  border-radius: 7px;
+}
+body .ticket-container main .ticket-main #ticket-info {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  gap: 2px;
+}
+body .ticket-container main .ticket-main #ticket-info #ticket-name {
+  font-size: 1.1em;
+  font-weight: 400;
+}
+body .ticket-container main .ticket-main #ticket-info span {
+  font-size: 0.89em;
+  color: hsl(252, 6%, 83%);
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  gap: 10px;
+}
+body .ticket-container main .ticket-main #ticket-info span svg {
+  width: 17px;
+}
+body .ticket-container main .ticket-id {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+}
+body .ticket-container main .ticket-id span {
+  color: hsl(245, 15%, 58%);
+  transform: rotate(90deg);
+  font-size: 1.3em;
+  margin-right: -15px !important;
 }/*# sourceMappingURL=style.css.map */

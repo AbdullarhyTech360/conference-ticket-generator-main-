@@ -23,3 +23,10 @@ $gradient-text: linear-gradient(135deg, $orange-500, $neutral-0);
   justify-content: $justify;
   gap: $gap;
 }
+
+@mixin bg-image($url) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}

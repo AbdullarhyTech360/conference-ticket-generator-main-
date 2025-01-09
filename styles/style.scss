@@ -21,10 +21,10 @@ body {
     width: 100%;
     padding: 1rem;
   }
-  .title{
+  .title {
     text-align: center;
     margin: 10px 0 15px 0;
-    svg{
+    svg {
       width: 150px;
     }
   }
@@ -45,10 +45,13 @@ body {
     }
   }
   form {
+    width: min(400px, 100%);
+    margin: 0 auto;
     .form-group {
       margin-bottom: 1rem;
       .error {
         @include flex-center(row, center, flex-start, 10px);
+        margin-top: 4px;
         display: none;
         p {
           color: $orange-500 !important;
@@ -67,13 +70,17 @@ body {
           stroke: $neutral-0 !important;
         }
       }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: $label-font-size;
+      }
       .input-wrapper {
         width: 100%;
         padding: 1px;
         @include flex-center(row, center, center, 0);
         border-radius: 12px;
-        input[type="text"],
-        input[type="email"] {
+        input[type="text"] {
           width: 100%;
           margin: 2px;
           padding: 10px;
@@ -91,25 +98,11 @@ body {
             border-color: $neutral-300;
           }
         }
-        label {
-          display: block;
-          margin-bottom: 10px;
-        }
-        button {
-          width: 100%;
-          padding: 13px 10px;
-          border: none;
-          border-radius: 8px;
-          background: $orange-500;
-          color: $neutral-900;
-          font-weight: 900;
-          margin: 2px;
-          cursor: pointer;
-          font-size: 16px;
-        }
+
         .upload-avatar {
           border: 1px dashed $neutral-300;
           width: 100%;
+          cursor: pointer;
           margin: 2px;
           border-radius: 8px;
           padding: 15px 20px;
@@ -118,30 +111,178 @@ body {
             display: none;
           }
           .upload-icon {
-            width: fit-content;
-            height: auto;
-            aspect-ratio: 1;
+            width: 50px;
+            height: 40px;
+            @include bg-image('');
             @include flex-center(row, center, center, 0);
             background: $neutral-700;
             border: 1px solid $neutral-500;
-            padding: 6px;
+            // background-image: url("../assets/images/icon-upload-image.svg");
+            // padding: 6px;
             border-radius: 10px;
+            img {
+              max-width: 40px;
+              width: 100%;
+              height: 39px;
+              object-fit: cover;
+              object-position: center;
+
+              display: none;
+            }
           }
-          .instructon{
-            font-size: .9rem;
+          .instruction {
+            font-size: 0.9rem;
           }
         }
       }
-      .input-wrapper:has(input[type="text"], input[type="email"]) {
+      .input-wrapper:has(input[type="text"]) {
         border: 1px solid $neutral-0;
       }
-      .input-wrapper:has(button),
       .input-wrapper:has(input[type="file"]) {
         border: 1px solid transparent;
         transition: border-color 0.3s ease-in-out;
       }
-      .input-wrapper:has(button:focus) {
+      .input-wrapper:has(button[type="submit"]) {
+        background-color: $orange-500;
+        border: 1px solid transparent;
+        transition: border-color 0.3s ease-in-out;
+      }
+      .input-wrapper:has(button[type="submit"]:focus) {
         border-color: $neutral-0;
+        background: transparent;
+      }
+    }
+    .error-wrapper {
+      padding: 0 !important;
+      input{
+        border: 1px solid $orange-500 !important;
+        margin: 0 !important;
+      }
+    }
+    .form-group:first-child {
+      #remove-change-buttons {
+        display: none;
+        button {
+          padding: 7px 11px 4px 11px;
+          border: none;
+          border-radius: 6px;
+          background: $neutral-700;
+          cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+    .form-group:first-child.uploaded {
+      button {
+        display: inline;
+      }
+    }
+    .form-group:last-child {
+      button {
+        width: 100%;
+        padding: 11px 10px;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+        color: $neutral-900;
+        font-weight: 900;
+        margin: 2px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease-in-out;
+        &:focus {
+          background-color: $orange-500;
+        }
+      }
+    }
+  }
+  .ticket-container{
+    header{
+      padding: 10px;
+      font-size: 0.9em;
+      h1{
+        font-size: 1.8em;
+        .name-group{
+          background-image: linear-gradient(to right, $orange-500, $neutral-0);
+          background-clip: text;
+          text-transform: capitalize;
+          color: transparent;
+        }
+      }
+    }
+    main{
+      #notification{
+        text-align: center;
+        margin: 0 auto 40px auto;
+        padding: 0 2px 20px 2px;
+        font-size: 1.13em;
+        font-weight: 600;
+        #your-email{
+          color: $orange-500;
+        }
+      }
+      .ticket{
+        @include flex-center(row, left, space-between, auto);
+        @include bg-image("../assets/images/pattern-ticket.svg");
+        width: 100%;
+        margin: 0 auto;
+        max-width: 343px;
+        height: 160px;
+        padding: 15px;
+        border-radius: 7px;
+      }
+      .main-info{
+        @include flex-center(column, left, space-between, 15px);
+      }
+      .ticket-logo{
+        @include flex-center(column, left, center, 4px);
+        svg{
+          width: 160px;
+        }
+        #ticket-date{
+          color: $neutral-300;
+          font-size: .8em;
+          word-spacing: 2px;
+          display: inline-block;
+          margin-left: 38px;
+        }
+      }
+      .ticket-main{
+        width: fit-content;
+        @include flex-center(row, left, space-between, 12px);
+        img{
+          width: 40px;
+          aspect-ratio: 1/1;
+          border-radius: 7px;
+        }
+        #ticket-info{
+          @include flex-center(column, left, center, 2px);
+          #ticket-name{
+            font-size: 1.1em;
+            font-weight: 400;
+          }
+          span{
+            font-size: 0.89em;
+            color: $neutral-300;
+            text-align: left;
+            @include flex-center(row, center, left, 10px);
+            svg{
+              width: 17px;
+            }
+          }
+        }
+      }
+      .ticket-id{
+        @include flex-center(row, center, center, 0);
+        position: relative;
+        span{
+          color: $neutral-500;
+          transform: rotate(90deg);
+          font-size: 1.3em;
+          margin-right: -15px !important;
+        }
       }
     }
   }
