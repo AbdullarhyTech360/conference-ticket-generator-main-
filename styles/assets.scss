@@ -13,7 +13,7 @@ $neutral-700: hsl(245, 19%, 35%);
 $neutral-900: hsl(248, 70%, 10%);
 $orange-500: hsl(7, 88%, 67%);
 $orange-700: hsl(7, 71%, 60%);
-$gradient-text: linear-gradient(135deg, $orange-500, $neutral-0);
+$gradient-text: linear-gradient(to right, $orange-500, $neutral-0);
 
 // Mixins
 @mixin flex-center($direction, $align, $justify, $gap) {
@@ -29,4 +29,14 @@ $gradient-text: linear-gradient(135deg, $orange-500, $neutral-0);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+@mixin body-bg-image($url) {
+  background-image:
+      url("../assets/images/pattern-squiggly-line-top.svg"),
+    url("../assets/images/pattern-circle.svg"),
+    url("../assets/images/pattern-lines.svg"),
+    url("../assets/images/pattern-squiggly-line-bottom.svg"),
+    url("../assets/images/pattern-circle.svg"),
+    url($url);
 }

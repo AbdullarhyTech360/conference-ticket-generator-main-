@@ -24,7 +24,7 @@ window.addEventListener('load', function () {
     // Removing image
     const removeImage = document.querySelector('#remove-button');
     removeImage.addEventListener('click', function (e) {
-        const imageArea = document.querySelector('img');
+        const imageArea = document.querySelector('#user-image');
         const mainIcon = document.querySelector('.main-icon');
         const instruction = document.querySelector('.instruction');
         instruction.style.display = 'block';
@@ -79,6 +79,7 @@ window.addEventListener('load', function () {
     const username = document.querySelector('#github-username');
     const imageInput = document.querySelector('#avatar');
     const checkForm = function () {
+        console.log(imageInput.files[0].type.split('/')[0] === "image")
         // checking if the fields are empty or not valid input in the form
         if (fullName.value === '') {
             setError(fullName, 'Please enter your full name.');
@@ -118,7 +119,7 @@ window.addEventListener('load', function () {
             const name = fullName.value;
             const firstName = name.split(' ')[0];
             const lastName = name.split(' ')[1] === undefined ? '' : name.split(' ')[1];
-            const middleName = name.split(' ')[2] === undefined ? '' : name.split(' ')[2];
+            const middleName = name.split(' ')[2] === undefined ? '' : " " + name.split(' ')[2];
             
             // updating the ticket details
             ticketContainer.querySelector('.name1').textContent = firstName;
@@ -128,7 +129,7 @@ window.addEventListener('load', function () {
             ticketContainer.querySelector('#username').textContent = username.value;
             ticketContainer.querySelector('#ticket-image').src = URL.createObjectURL(imageInput.files[0]);
             ticketContainer.style.display = 'block';
-            document.querySelector('#form').style.display = 'none';
+            document.querySelector('.form-container').style.display = 'none';
         }
     });
 })

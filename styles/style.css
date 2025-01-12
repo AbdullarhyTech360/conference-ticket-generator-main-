@@ -11,10 +11,12 @@
 }
 
 body {
-  background-image: url("../assets/images/background-mobile.png"), url("../assets/images/pattern-squiggly-line-bottom.svg"), url("../assets/images/pattern-circle.svg");
+  background-image: url("../assets/images/pattern-squiggly-line-top.svg"), url("../assets/images/pattern-circle.svg"), url("../assets/images/pattern-lines.svg"), url("../assets/images/pattern-squiggly-line-bottom.svg"), url("../assets/images/pattern-circle.svg"), url("../assets/images/background-mobile.png");
   background-repeat: no-repeat;
-  background-size: cover, cover, cover;
-  background-position: center, center, center;
+  background-position: right 22px, -17px -25px, center, left bottom, 115% 58%, right bottom;
+  background-size: 100px, 90px, auto, 250px, 110px, cover;
+  padding-bottom: 60px;
+  min-height: 100vh;
 }
 body .container {
   width: 100%;
@@ -31,6 +33,11 @@ body header {
   padding: 7px;
   text-align: center;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
 }
 body header h2 {
   text-transform: capitalize;
@@ -47,7 +54,7 @@ body form {
   margin: 0 auto;
 }
 body form .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 body form .form-group .error {
   display: flex;
@@ -79,6 +86,14 @@ body form .form-group label {
   margin-bottom: 10px;
   font-size: 20px;
 }
+body form .form-group input::-moz-placeholder {
+  color: hsl(252, 6%, 83%);
+  font-weight: 500;
+}
+body form .form-group input::placeholder {
+  color: hsl(252, 6%, 83%);
+  font-weight: 500;
+}
 body form .form-group .input-wrapper {
   width: 100%;
   padding: 1px;
@@ -92,72 +107,99 @@ body form .form-group .input-wrapper {
 body form .form-group .input-wrapper input[type=text] {
   width: 100%;
   margin: 2px;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid transparent;
-  border-radius: 8px;
-  background-color: transparent;
+  border-radius: inherit;
   color: hsl(0, 0%, 100%) !important;
+  background: transparent;
   font-size: 16px;
   outline: none;
-  font-weight: 700;
+  font-weight: 500;
   border: 1px solid none;
   transition: border-color 0.3s ease-in-out;
   cursor: pointer;
 }
 body form .form-group .input-wrapper input[type=text]:focus {
   border-color: hsl(252, 6%, 83%);
+  background: hsl(249, 42%, 19%);
+  filter: opacity(0.8);
 }
 body form .form-group .input-wrapper .upload-avatar {
   border: 1px dashed hsl(252, 6%, 83%);
+  background: hsl(249, 42%, 19%);
   width: 100%;
   cursor: pointer;
   margin: 2px;
   border-radius: 8px;
-  padding: 15px 20px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
 }
+body form .form-group .input-wrapper .upload-avatar:hover {
+  filter: opacity(0.7);
+}
+body form .form-group .input-wrapper .upload-avatar:active {
+  filter: opacity(1);
+  border: 1px solid hsl(252, 6%, 83%);
+}
 body form .form-group .input-wrapper .upload-avatar input {
   display: none;
 }
 body form .form-group .input-wrapper .upload-avatar .upload-icon {
   width: 50px;
-  height: 40px;
+  height: 48px;
   background-image: url("");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
+  position: relative;
   background: hsl(245, 19%, 35%);
   border: 1px solid hsl(245, 15%, 58%);
   border-radius: 10px;
+  cursor: pointer;
+}
+body form .form-group .input-wrapper .upload-avatar .upload-icon svg {
+  position: absolute;
+  margin: auto;
+  inset: 0;
 }
 body form .form-group .input-wrapper .upload-avatar .upload-icon img {
-  max-width: 40px;
+  max-width: 100%;
   width: 100%;
-  height: 39px;
+  height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
+  border-radius: inherit;
   display: none;
 }
 body form .form-group .input-wrapper .upload-avatar .instruction {
-  font-size: 0.9rem;
+  margin-top: 10px;
+  font-size: 1rem;
 }
 body form .form-group .input-wrapper:has(input[type=text]) {
-  border: 1px solid hsl(0, 0%, 100%);
+  border: 1px solid hsl(252, 6%, 83%);
+  background: hsl(249, 42%, 19%);
+  filter: opacity(0.8);
+  transition: all 0.3s ease-in-out;
+}
+body form .form-group .input-wrapper:has(input[type=text]):hover {
+  background: hsl(245, 19%, 35%);
+}
+body form .form-group .input-wrapper:has(input[type=text]:focus) {
+  background: transparent;
 }
 body form .form-group .input-wrapper:has(input[type=file]) {
   border: 1px solid transparent;
   transition: border-color 0.3s ease-in-out;
+}
+body form .form-group .input-wrapper:has(input[type=file]:hover) {
+  border-color: hsl(252, 6%, 83%);
+}
+body form .form-group .input-wrapper:has(input[type=file]:focus) {
+  border-color: hsl(252, 6%, 83%);
 }
 body form .form-group .input-wrapper:has(button[type=submit]) {
   background-color: hsl(7, 88%, 67%);
@@ -202,7 +244,7 @@ body form .form-group:last-child button {
   margin: 2px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 body form .form-group:last-child button:focus {
   background-color: hsl(7, 88%, 67%);
@@ -213,6 +255,7 @@ body .ticket-container header {
 }
 body .ticket-container header h1 {
   font-size: 1.8em;
+  max-width: 470px;
 }
 body .ticket-container header h1 .name-group {
   background-image: linear-gradient(to right, hsl(7, 88%, 67%), hsl(0, 0%, 100%));
@@ -227,6 +270,8 @@ body .ticket-container main #notification {
   padding: 0 2px 20px 2px;
   font-size: 1.13em;
   font-weight: 600;
+  max-width: 280px;
+  line-height: 18px;
 }
 body .ticket-container main #notification #your-email {
   color: hsl(7, 88%, 67%);
@@ -323,4 +368,60 @@ body .ticket-container main .ticket-id span {
   transform: rotate(90deg);
   font-size: 1.3em;
   margin-right: -15px !important;
+}
+
+@media (min-width: 425px) {
+  body {
+    background-position: right 52px, -17px -25px, center, left bottom, 100% 58%, right bottom;
+  }
+}
+@media (min-width: 768px) {
+  body {
+    background-image: url("../assets/images/pattern-squiggly-line-top.svg"), url("../assets/images/pattern-circle.svg"), url("../assets/images/pattern-lines.svg"), url("../assets/images/pattern-squiggly-line-bottom.svg"), url("../assets/images/pattern-circle.svg"), url("../assets/images/background-tablet.png");
+    background-size: 190px, 90px, auto, 400px, 170px, cover;
+    background-position: right 52px, -17px -25px, center, left bottom, 570px 48%, right bottom;
+  }
+  body .ticket-container header h1 {
+    font-size: 2.2em !important;
+  }
+  body .ticket-container .ticket {
+    margin-top: 100px !important;
+  }
+  body .ticket-container #notification {
+    font-size: 0.8em !important;
+  }
+}
+@media (min-width: 1000px) {
+  body {
+    background-image: url("../assets/images/pattern-squiggly-line-top.svg"), url("../assets/images/pattern-circle.svg"), url("../assets/images/pattern-lines.svg"), url("../assets/images/pattern-squiggly-line-bottom.svg"), url("../assets/images/pattern-circle.svg"), url("../assets/images/background-desktop.png");
+    background-size: 290px, 90px, auto, 500px, 200px, cover;
+    background-position: right 65px, -17px -25px, center, left bottom, 700px 54%, right bottom;
+  }
+  body .title svg {
+    width: 160px;
+    height: auto;
+  }
+  body header h2 {
+    margin: 25px 0 15px 0;
+    font-size: 2.7em;
+    padding: 0 20px !important;
+    width: 60%;
+  }
+}
+@media (min-width: 1440px) {
+  body {
+    background-image: url("../assets/images/pattern-squiggly-line-top.svg"), url("../assets/images/pattern-circle.svg"), url("../assets/images/pattern-lines.svg"), url("../assets/images/pattern-squiggly-line-bottom.svg"), url("../assets/images/pattern-circle.svg"), url("../assets/images/background-desktop.png");
+    background-size: 350px, 90px, auto, 600px, 200px, cover;
+    background-position: right 65px, -17px -25px, center, left bottom, 905px 55%, right bottom;
+  }
+  body .title svg {
+    width: 160px;
+    height: auto;
+  }
+  body header h2 {
+    margin: 25px 0 15px 0;
+    font-size: 2.7em;
+    padding: 0 20px !important;
+    width: 50%;
+  }
 }/*# sourceMappingURL=style.css.map */
