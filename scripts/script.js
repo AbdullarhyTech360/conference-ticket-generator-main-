@@ -1,46 +1,5 @@
 // Ensuring everything is loaded before running the script
 window.addEventListener('load', function () {
-    // Uploading image and displaying it
-    const uploadContainer = document.querySelector('.upload-container');
-    const uploadInput = document.querySelector('#avatar');
-    uploadInput.addEventListener('change', function (e) {
-        if (this.files && this.files[0]) {
-            const imageArea = document.querySelector('img');
-            const mainIcon = document.querySelector('.main-icon');
-            const instruction = document.querySelector('.instruction');
-            instruction.style.display = 'none';
-            const removeChangeButtons = document.querySelector('#remove-change-buttons');
-            removeChangeButtons.style.display = 'block';
-            imageArea.style.display = 'block';
-            mainIcon.style.display = 'none';
-            imageArea.onload = function () {
-                URL.revokeObjectURL(imageArea.src);
-            }
-            imageArea.src = URL.createObjectURL(this.files[0]);
-        }
-
-    });
-
-    // Removing image
-    const removeImage = document.querySelector('#remove-button');
-    removeImage.addEventListener('click', function (e) {
-        const imageArea = document.querySelector('#user-image');
-        const mainIcon = document.querySelector('.main-icon');
-        const instruction = document.querySelector('.instruction');
-        instruction.style.display = 'block';
-        document.getElementById('avatar').value = '';
-        imageArea.src = '';
-        // imageArea.files = undefined;
-        imageArea.style.display = 'none';
-        mainIcon.style.display = 'block';
-        document.querySelector('#remove-change-buttons').style.display = 'none';
-    })
-
-    // Changing image
-    const changeImage = document.querySelector('#change-button');
-    changeImage.onclick = function (e) {
-        uploadInput.click();
-    }
 
     // A function for setting error
     const setError = (element, message) => {
@@ -74,18 +33,101 @@ window.addEventListener('load', function () {
             parentElement.querySelector('.input-wrapper').parentElement.classList.remove('error-wrapper');
         }
     }
+    // Uploading image and displaying it
+    const uploadContainer = document.querySelector('.upload-container');
+    const uploadInput = document.querySelector('#avatar');
+    uploadInput.addEventListener('change', function (e) {
+        if (this.files && this.files[0]) {
+            const imageArea = document.querySelector('img');
+            const mainIcon = document.querySelector('.main-icon');
+            const instruction = document.querySelector('.instruction');
+            instruction.style.display = 'none';
+            const removeChangeButtons = document.querySelector('#remove-change-buttons');
+            removeChangeButtons.style.display = 'block';
+            imageArea.style.display = 'block';
+            mainIcon.style.display = 'none';
+            imageArea.onload = function () {
+                URL.revokeObjectURL(imageArea.src);
+            }
+            imageArea.src = URL.createObjectURL(this.files[0]);
+        }
+
+    });
+    // listening to the darg and drop event
+    uploadContainer.addEventListener('dragover', function (e) {
+        e.preventDefault();
+    });
+
+    // Resetting image
+    const resetImage = () => {
+        document.querySelector('.instruction').style.display = 'block';
+        document.getElementById('avatar').value = '';
+        document.querySelector('img').src = '';
+        document.querySelector('img').style.display = 'none';
+        document.querySelector('.main-icon').style.display = 'block';
+        document.querySelector('#remove-change-buttons').style.display = 'none';
+    }
+    let isDragging = false;
+    // Dropping image
+    uploadContainer.addEventListener('drop', function (e) {
+        e.preventDefault();
+        console.log(e.dataTransfer.files);
+        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            const file = e.dataTransfer.files[0];
+            console.log("File type:", file);
+            if (file.type.split('/')[0] === 'image') {
+                const imageArea = document.querySelector('img');
+                const mainIcon = document.querySelector('.main-icon');
+                const instruction = document.querySelector('.instruction');
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                uploadInput.files = dataTransfer.files;
+                instruction.style.display = 'none';
+                const removeChangeButtons = document.querySelector('#remove-change-buttons');
+                removeChangeButtons.style.display = 'block';
+                imageArea.style.display = 'block';
+                mainIcon.style.display = 'none';
+                imageArea.onload = function () {
+                    URL.revokeObjectURL(imageArea.src);
+                }
+                imageArea.src = URL.createObjectURL(file);
+                removeError(document.querySelector('#avatar'));
+                isDragging = true;
+            } else {
+                resetImage();
+                setError(document.querySelector('#avatar'), 'Please upload an image file.');
+                isDragging = false;
+            }
+        }
+    });
+
+    // Removing image
+    document.querySelector('#remove-button').onclick = (e) => resetImage();
+
+    // Changing image
+    const changeImage = document.querySelector('#change-button');
+    changeImage.onclick = function (e) {
+        uploadInput.click();
+    }
+    // Adding event listener to the form input
+    const formInputs = document.querySelectorAll('input[type="text"]');
+    formInputs.forEach(input => {
+        input.addEventListener('input', function (e) {
+            checkForm();
+        });
+    });
     // A function for generating a random ticet id
-    function generateRandomString(length = 5) {  
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';  
-        let result = '';  
-    
-        for (let i = 0; i < length; i++) {  
-            const randomIndex = Math.floor(Math.random() * characters.length);  
-            result += characters[randomIndex];  
-        }  
-    
-        return result;  
-    }  
+    function generateRandomString(length = 5) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            result += characters[randomIndex];
+        }
+
+        return result;
+    }
     // Checking if the form is valid
     const fullName = document.querySelector('#fullname');
     const emailAddress = document.querySelector('#email-address');
@@ -98,6 +140,7 @@ window.addEventListener('load', function () {
         } else {
             removeError(fullName);
         }
+
         if (emailAddress.value === '') {
             setError(emailAddress, 'Please enter your email address.');
         } else if (!emailAddress.value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
@@ -105,20 +148,23 @@ window.addEventListener('load', function () {
         } else {
             removeError(emailAddress);
         }
+
         if (username.value === '') {
             setError(username, 'Please enter your github username.');
         } else if (!username.value.match(/@+\w+/gm)) {
             setError(username, 'Please enter a valid github username.');
-        }else {
+        } else {
             removeError(username);
         }
-        if (imageInput.value === '') {
+        
+        if (imageInput.files.length === 0) {
             setError(imageInput, 'Please upload your image.');
-        } else if (imageInput.files[0].size > 500000) {
+        } else if (imageInput?.files[0]?.size > 500000) {
             setError(imageInput, 'File too large. Please upload a photo under 500KB.');
-        } else if(imageInput.files[0].type.split('/')[0] != "image"){
+        } else if (imageInput?.files[0]?.type.split('/')[0] != "image") {
             setError(imageInput, 'Please upload a valid image file.');
         } else {
+            console.log(isDragging);
             removeError(imageInput);
         }
     }
@@ -128,6 +174,7 @@ window.addEventListener('load', function () {
         return document.querySelectorAll('.error-wrapper').length === 0 && window.getComputedStyle(document.querySelector('.error').parentElement.querySelector('p')).color === 'rgb(255, 255, 255)' ? false : true;
     }
     myForm.addEventListener('submit', function (e) {
+        console.log(imageInput.value);
         e.preventDefault();
         checkForm();
         if (!errorExist()) {
@@ -136,12 +183,7 @@ window.addEventListener('load', function () {
             const firstName = name.split(' ')[0];
             const lastName = name.split(' ')[1] === undefined ? '' : name.split(' ')[1];
             const middleName = name.split(' ')[2] === undefined ? '' : " " + name.split(' ')[2];
-            const currentDate = new Date();
-            const date = currentDate.getDate();
-            const month = currentDate.getMonth() + 1;
-            const year = currentDate.getFullYear();
-            console.log(date, month, year);
-            
+
             // updating the ticket details
             ticketContainer.querySelector('.name1').textContent = firstName;
             ticketContainer.querySelector('.name2').textContent = lastName;
