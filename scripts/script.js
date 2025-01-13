@@ -28,7 +28,9 @@ window.addEventListener('load', function () {
         const mainIcon = document.querySelector('.main-icon');
         const instruction = document.querySelector('.instruction');
         instruction.style.display = 'block';
+        document.getElementById('avatar').value = '';
         imageArea.src = '';
+        // imageArea.files = undefined;
         imageArea.style.display = 'none';
         mainIcon.style.display = 'block';
         document.querySelector('#remove-change-buttons').style.display = 'none';
@@ -72,14 +74,24 @@ window.addEventListener('load', function () {
             parentElement.querySelector('.input-wrapper').parentElement.classList.remove('error-wrapper');
         }
     }
-
+    // A function for generating a random ticet id
+    function generateRandomString(length = 5) {  
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';  
+        let result = '';  
+    
+        for (let i = 0; i < length; i++) {  
+            const randomIndex = Math.floor(Math.random() * characters.length);  
+            result += characters[randomIndex];  
+        }  
+    
+        return result;  
+    }  
     // Checking if the form is valid
     const fullName = document.querySelector('#fullname');
     const emailAddress = document.querySelector('#email-address');
     const username = document.querySelector('#github-username');
     const imageInput = document.querySelector('#avatar');
     const checkForm = function () {
-        console.log(imageInput.files[0].type.split('/')[0] === "image")
         // checking if the fields are empty or not valid input in the form
         if (fullName.value === '') {
             setError(fullName, 'Please enter your full name.');
@@ -95,13 +107,17 @@ window.addEventListener('load', function () {
         }
         if (username.value === '') {
             setError(username, 'Please enter your github username.');
-        } else {
+        } else if (!username.value.match(/@+\w+/gm)) {
+            setError(username, 'Please enter a valid github username.');
+        }else {
             removeError(username);
         }
         if (imageInput.value === '') {
             setError(imageInput, 'Please upload your image.');
         } else if (imageInput.files[0].size > 500000) {
             setError(imageInput, 'File too large. Please upload a photo under 500KB.');
+        } else if(imageInput.files[0].type.split('/')[0] != "image"){
+            setError(imageInput, 'Please upload a valid image file.');
         } else {
             removeError(imageInput);
         }
@@ -120,14 +136,23 @@ window.addEventListener('load', function () {
             const firstName = name.split(' ')[0];
             const lastName = name.split(' ')[1] === undefined ? '' : name.split(' ')[1];
             const middleName = name.split(' ')[2] === undefined ? '' : " " + name.split(' ')[2];
+            const currentDate = new Date();
+            const date = currentDate.getDate();
+            const month = currentDate.getMonth() + 1;
+            const year = currentDate.getFullYear();
+            console.log(date, month, year);
             
             // updating the ticket details
             ticketContainer.querySelector('.name1').textContent = firstName;
             ticketContainer.querySelector('.name2').textContent = lastName;
             ticketContainer.querySelector('.name3').textContent = middleName;
+            ticketContainer.querySelector('.name11').textContent = firstName;
+            ticketContainer.querySelector('.name12').textContent = lastName;
+            ticketContainer.querySelector('.name13').textContent = middleName;
             ticketContainer.querySelector('#your-email').textContent = emailAddress.value;
             ticketContainer.querySelector('#username').textContent = username.value;
             ticketContainer.querySelector('#ticket-image').src = URL.createObjectURL(imageInput.files[0]);
+            ticketContainer.querySelector('#ticket-id').textContent = "#" + generateRandomString().toUpperCase()
             ticketContainer.style.display = 'block';
             document.querySelector('.form-container').style.display = 'none';
         }
