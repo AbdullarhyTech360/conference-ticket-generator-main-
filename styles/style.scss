@@ -299,6 +299,7 @@ body {
         #ticket-info {
           @include flex-center(column, left, center, 2px);
           #ticket-name {
+            @include flex-center(row, flex-start, flex-start, 5px);
             font-size: 1.1em;
             font-weight: 400;
           }
